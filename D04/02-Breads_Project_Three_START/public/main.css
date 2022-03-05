@@ -1,0 +1,15 @@
+body {
+    background-color: floralwhite;
+  }
+  
+  img {
+    width: 50%;
+    display: block;
+    margin: auto;
+  }
+
+  .title {
+      text-align: center;
+      display: block;
+  }
+  

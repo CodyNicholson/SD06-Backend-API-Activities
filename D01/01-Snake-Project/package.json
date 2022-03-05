@@ -1,0 +1,17 @@
+{
+  "name": "01-snake-project",
+  "version": "1.0.0",
+  "description": "Snakes",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "keywords": [
+    "snake"
+  ],
+  "author": "Cody",
+  "license": "ISC",
+  "dependencies": {
+    "snake-names": "^1.0.9"
+  }
+}
