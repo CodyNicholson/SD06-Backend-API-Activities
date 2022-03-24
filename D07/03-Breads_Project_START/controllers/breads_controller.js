@@ -4,13 +4,16 @@ const Bread = require('../models/bread.js')
 
 // INDEX
 breads.get('/', (req, res) => {
-  res.render('Index',
-    {
-      breads: Bread,
-      title: "My Index Page"
-    }
-  )
-})
+  console.log(Bread)
+  const breads = Bread.find()
+    .then(foundBreads => {
+      console.log(foundBreads);
+      res.render('Index', {
+        breads: foundBreads,
+        title: "My Index Page"
+      });
+    });
+});
 
 // NEW
 breads.get('/new', (req, res) => {
@@ -18,15 +21,14 @@ breads.get('/new', (req, res) => {
 })
 
 // SHOW
-breads.get('/:arrayIndex', (req, res) => {
-  if (Bread[req.params.arrayIndex]) {
-    res.render('Show', {
-      bread: Bread[req.params.arrayIndex],
-      index: req.params.arrayIndex
-    })
-  } else {
-    res.send('404')
-  }
+breads.get('/:id', (req, res) => {
+  const bread = Bread.findById(req.params.id)
+    .then(bread => {
+      console.log(bread);
+      res.render('Show', { bread: bread});
+    }).catch(err => {
+      res.send('404');
+    });
 })
 
 // CREATE
@@ -43,28 +45,33 @@ breads.post('/', (req, res) => {
   } else {
     req.body.hasGluten = false
   }
-  Bread.push(req.body)
+  Bread.create(req.body)
   res.redirect('/breads')
 })
 
 // EDIT
-breads.get('/:indexArray/edit', (req, res) => {
-  res.render('edit', {
-    bread: Bread[req.params.indexArray],
-    index: req.params.indexArray
-  })
-})
+breads.get('/:id/edit', (req, res) => {
+  const bread = Bread.findById(req.params.id)
+    .then(bread => {
+      console.log(bread);
+      res.render('edit', {
+        bread: bread
+      });
+    }).catch(err => {
+      res.send('404');
+    });
+});
 
 // UPDATE
-breads.put('/:arrayIndex', (req, res) => {
+breads.put('/:id', (req, res) => {
   console.log(req.body)
   if(req.body.hasGluten === 'on'){
     req.body.hasGluten = true
   } else {
     req.body.hasGluten = false
   }
-  Bread[req.params.arrayIndex] = req.body
-  res.redirect(`/breads/${req.params.arrayIndex}`)
+  Bread.updateOne(req.params.id)
+    .then(() => res.redirect(`/breads/${req.params.id}`));
 })
 
 module.exports = breads

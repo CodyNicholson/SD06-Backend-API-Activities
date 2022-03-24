@@ -94,11 +94,23 @@ breads.post('/', (req, res) => {
 
 
 // EDIT
-breads.get('/:indexArray/edit', (req, res) => {
-  res.render('edit', {
-    bread: Bread[req.params.indexArray],
-    index: req.params.indexArray
-  })
+// breads.get('/:indexArray/edit', (req, res) => {
+//   res.render('edit', {
+//     bread: Bread[req.params.indexArray],
+//     index: req.params.indexArray
+//   })
+// })
+
+breads.get('/:id/edit', (req, res) => {
+  Bread.findById(req.params.id)
+    .then(foundBread => {
+      res.render('edit', {
+        bread: foundBread
+      })
+    })
+    .catch(err => {
+      res.send('404')
+    })
 })
 
 // UPDATE

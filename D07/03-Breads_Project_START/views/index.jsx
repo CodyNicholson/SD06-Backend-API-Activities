@@ -7,9 +7,10 @@ function Index({breads, title})  {
       <h2>Index Page</h2>
       <ul>
         {
-          breads.map((bread, index) => {
-            return (<li key={index}>
-              <a href={`/breads/${index}`}>
+          breads.map((bread) => {
+            console.log(bread.id);
+            return (<li key={bread.id}>
+              <a href={`/breads/${bread.id}`}>
                 {bread.name}
               </a>
             </li>)

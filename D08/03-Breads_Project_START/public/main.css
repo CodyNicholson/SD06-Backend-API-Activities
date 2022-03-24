@@ -1,0 +1,13 @@
+body {
+  background-color: floralwhite;
+}
+  
+img {
+  width: 50%;
+  display: block;
+  margin: auto;
+}
+
+.text-center {
+  text-align: center;
+}
